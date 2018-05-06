@@ -1,0 +1,6 @@
+﻿INSERT INTO [dbo].[products] ([Id], [name], [isbn], [company_id], [price]) VALUES (1, N'Bira      ', N'123456    ', 1, CAST(50.10 AS Decimal(18, 2)))
+INSERT INTO [dbo].[products] ([Id], [name], [isbn], [company_id], [price]) VALUES (2, N'Musaka    ', N'43HA22    ', 1, CAST(10.20 AS Decimal(18, 2)))
+INSERT INTO [dbo].[products] ([Id], [name], [isbn], [company_id], [price]) VALUES (3, N'Riba      ', N'43HA22    ', 1, CAST(20.00 AS DECIMAL(18, 2)))
+INSERT INTO [dbo].[products] ([Id], [name], [isbn], [company_id], [price]) VALUES (4, N'Duvki     ', N'43HA22    ', 2, CAST(5.80 AS DECIMAL(18, 2)))
+INSERT INTO [dbo].[products] ([Id], [name], [isbn], [company_id], [price]) VALUES (5, N'RusenskoV ', N'43HA22    ', 3, CAST(15.50 AS DECIMAL(18, 2)))
+INSERT INTO [dbo].[products] ([Id], [name], [isbn], [company_id], [price]) VALUES (6, N'Panitsi   ', N'43HA22    ', 3, CAST(10.20 AS Decimal(18, 2)))

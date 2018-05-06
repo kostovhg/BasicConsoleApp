@@ -1,0 +1,1 @@
+﻿SELECT p.id, p.name, p.isbn, p.price, c.name AS 'company_name' FROM products AS p LEFT JOIN company AS c ON p.company_id = c.id;
