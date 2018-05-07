@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Test.Commands
 {
     public class ExitProgram : BaseCommand
     {
 
+        public override int Number { get { return 0; } }
+
+        public override string Name { get { return "Exit"; } }
+
+        public override string ProgramInfo
+        { get { return "Leave the app"; } }
+
+
         public override void Run()
         {
-            Console.WriteLine("Exiting the program");
-        }
-
-        public override void ProgramInfo()
-        {
-            Console.WriteLine("End the program");
-        }
-
-        public override int GetProgramNumber()
-        {
-            return 0;
+            // nothing
         }
     }
 }

@@ -6,12 +6,23 @@ namespace Test.Commands
 {
     public class WordsReverse : BaseCommand
     {
-        private readonly int Number = 2;
+
+        public override int Number { get { return 2; } }
+
+        public override string Name { get { return "Reverse Words"; } }
+
+        public override string ProgramInfo
+        {
+            get
+            {
+                return "Program that utilize a function which accepts a string as parameter, and reverses each word in the string.";
+            }
+        }
 
         public override void Run()
         {
-            Console.WriteLine("Enter the string to be reverced: ");
-            Console.WriteLine("Result : {0}", ReverseWords(Console.ReadLine()));
+            writer.WriteLine("\nEnter the string to be reverced: ");
+            writer.WriteLine("\nResult : " + ReverseWords(reader.ReadInput()));
             //Console.WriteLine("Result : {0}", LambdaReverseWords(Console.ReadLine()));
         }
 
@@ -34,21 +45,6 @@ namespace Test.Commands
         private string LambdaReverseWords(string input)
         {
             return string.Join(" ", input.Split(" ").Select(w => new string(w.ToCharArray().Reverse().ToArray())));
-        }
-
-        public override void ProgramInfo()
-        {
-            Console.WriteLine("Program that utilize a function which accepts a string as parameter, and reverses each word in the string");
-        }
-
-        public override int GetProgramNumber()
-        {
-            return Number;
-        }
-
-        public override string GetCommandName()
-        {
-            return "Reverse Words";
         }
     }
 }

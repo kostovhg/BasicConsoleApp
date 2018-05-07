@@ -18,12 +18,12 @@ namespace Test.Commands
 
         public void WriteLine(string format, object[] args)
         {
-            Console.WriteLine(String.Format(format), args);
+            Console.WriteLine(String.Format(format, args));
         }
 
         public void WriteLine(string format, string arg)
         {
-            Console.WriteLine(String.Format(format), arg);
+            Console.WriteLine(String.Format(format, arg));
         }
 
         public void WriteHeading(string heading)

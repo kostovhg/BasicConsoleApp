@@ -5,6 +5,11 @@ namespace Test.Commands
 {
     internal class ConsoleReader : IReader
     {
+        public string ReadInput()
+        {
+            return Console.ReadLine();
+        }
+
         public List<string> ReadInputParameters(String sep)
         {
             List<string> args = new List<string>();

@@ -2,12 +2,15 @@
 {
     internal interface IRunnable
     {
+        int Number { get; }
+
+        string Name { get; }
+
+        string ProgramInfo { get; }
+
         void Run();
 
-        void ProgramInfo();
-
-        int GetProgramNumber();
-
-        string GetCommandName();
+        void PrintHeading();
+               
     }
 }

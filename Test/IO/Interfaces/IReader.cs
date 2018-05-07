@@ -5,6 +5,8 @@ namespace Test.Commands
 {
     public interface IReader
     {
+        string ReadInput();
+
         List<string> ReadInputParameters();
 
         List<string> ReadInputParameters(string sep);

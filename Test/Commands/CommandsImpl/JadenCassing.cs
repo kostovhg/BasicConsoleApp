@@ -5,12 +5,22 @@ namespace Test.Commands
 {
     internal class JadenCassing : BaseCommand
     {
-        private readonly int Number = 8;
-       public override void Run()
+        public override int Number { get { return 8; } }
+
+        public override string Name { get { return "Jaden Casing Strings"; } }
+
+        public override string ProgramInfo
         {
-            Console.WriteLine("Enter sentence to be transformed to Jaden-Cased: ");
-            String[] input = Console.ReadLine().Split();
-            Console.WriteLine(ConvertToJadenCase(input));
+            get
+            {
+                return "Capitalize each word in sentence.";
+            }
+        }
+        public override void Run()
+        {
+            writer.WriteLine("\nEnter sentence to be transformed to Jaden-Cased: ");
+            String[] input = reader.ReadInputParameters(" ").ToArray();
+            writer.WriteLine("\nResult: " + ConvertToJadenCase(input));
         }
 
         private String ConvertToJadenCase(string[] input)
@@ -18,21 +28,6 @@ namespace Test.Commands
             return String.Join(" ", input
                 .Select(w => char.ToUpper(w[0]) + w.Substring(1))
                 .ToArray());
-        }
-
-        public override void ProgramInfo()
-        {
-            Console.WriteLine("Capitalize each word in sentence");
-        }
-
-        public override int GetProgramNumber()
-        {
-            return this.Number;
-        }
-
-        public override string GetCommandName()
-        {
-            return "Jaden Casing Strings";
         }
     }
 }

@@ -4,11 +4,15 @@ namespace Test.Commands
 {
     public abstract class BaseCommand : IRunnable
     {
-        protected static int CommandNumber = -1;
-        protected string CommandName = "Basic Command";
+        public virtual int Number { get { return -1; } }
+
+        public virtual string Name { get { return "Basic command"; } }
+
+        public virtual string ProgramInfo { get { return "Info for each app"; } }
+
         private static IReader _reader;
         private static IWriter _writer;
-        protected IReader reader {
+        public IReader reader {
             get
             {
                 if (_reader == null)
@@ -17,7 +21,7 @@ namespace Test.Commands
             }
             set { _reader = value; }
         }
-        protected IWriter writer
+        public IWriter writer
         {
             get
             {
@@ -28,28 +32,17 @@ namespace Test.Commands
             set { _writer = value; }
         }
 
-        protected BaseCommand()
-        {
-        }
-
-        public virtual int GetProgramNumber()
-        {
-            return CommandNumber;
-        }
-
-        public virtual void ProgramInfo()
-        {
-            Console.WriteLine("Info for each app");
-        }
+        protected BaseCommand() { }
 
         public virtual void Run()
         {
             Console.WriteLine("Run some program ...");
         }
 
-        public virtual string GetCommandName()
+        public void PrintHeading()
         {
-            return this.CommandName;
+            writer.WriteHeading(Name);
+            writer.WriteLine(ProgramInfo);
         }
     }
 }

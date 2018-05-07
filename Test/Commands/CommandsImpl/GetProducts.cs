@@ -7,12 +7,22 @@ namespace Test.Commands
 {
     public class GetProducts : BaseCommand
     {
-        private readonly int Number = 10;
-        private readonly string Name = "SQL Basics: Simple JOIN";
+        public override int Number { get { return 10; } }
+
+        public override string Name { get { return "SQL Basics: Simple JOIN?"; } }
+
+        public override string ProgramInfo
+        {
+            get
+            {
+                return "Return all columns from the products table joined with company table, to fetch the company name.";
+            }
+        }
+
         public override void Run()
         {
             getProducts();
-            Console.WriteLine();
+            writer.WriteLine("");
         }
 
         private List<object> getProducts()
@@ -27,34 +37,38 @@ namespace Test.Commands
             cmd.CommandType = CommandType.Text;
             cmd.Connection = cnn;
             cnn.Open();
-            Console.WriteLine("Connection Open  !");
+            writer.WriteLine("\nConnection Open  !");
+            writer.WriteLine("\nExecuting query:");
+            writer.WriteLine(cmd.CommandText);
 
             reader = cmd.ExecuteReader();
 
             List<object> result = new List<object>();
-            Console.WriteLine("{0,4} {1,-20} {2,-16} {3,-20} {4,-10}", "id", "name", "isbn", "company", "price");
-            Console.WriteLine(new String('-', 70));
+            writer.WriteLine("\nResult: ");
+            writer.WriteLine("{0,4} {1,-20} {2,-16} {3,-20} {4,-10}", 
+                new object[] {
+                    reader.GetName(0),
+                    reader.GetName(1),
+                    reader.GetName(2),
+                    reader.GetName(3),
+                    reader.GetName(4)
+                });
+            writer.WriteLine(new String('-', 70));
             while (reader.Read())
             {
-                Console.WriteLine("{0,4} {1,-20} {2,-16} {3,-20} {4,-10}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetDecimal(4));
+                writer.WriteLine(
+                    "{0,4} {1,-20} {2,-16} {3,-20} {4,-10}",
+                    new object[]
+                    {
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetString(3),
+                        reader.GetDecimal(4)
+                    });
             }
             cnn.Close();
             return new List<object>();
-        }
-
-        public override void ProgramInfo()
-        {
-            Console.WriteLine("Return all columns from the products table joined with company table, to fetch the company name.");
-        }
-
-        public override int GetProgramNumber()
-        {
-            return this.Number;
-        }
-
-        public override string GetCommandName()
-        {
-            return this.Name;
         }
     }
 }

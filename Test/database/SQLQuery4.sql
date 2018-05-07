@@ -24,7 +24,7 @@ BEGIN
       SET @EndDate = @SecondDate
     END
 
--- Get all days in range, remove weekends, remove bondary dates if they are part of the weekend
+-- Get all days in range, remove weekends, remove boundary dates if they are part of the weekend
   SET @WorkDays = 
      (DATEDIFF(dd, @StartDate, @EndDate) + 1) 
     -(DATEDIFF(wk, @StartDate, @EndDate) * 2) 

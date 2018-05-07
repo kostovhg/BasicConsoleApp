@@ -11,16 +11,26 @@ namespace Test.Commands
 {
     public class GetWorkDaysBetweenDates : BaseCommand
     {
-        private readonly int Number = 13;
-        private readonly string Name = "Count Weekdays";
+        public override int Number { get { return 13; } }
+
+        public override string Name { get { return "Count Weekdays"; } }
+
+        public override string ProgramInfo
+        {
+            get
+            {
+                return "Use (create) User defined function to calculate the working days between two dates." + Environment.NewLine +
+                    "Using SQLQuery4.sql file from Test.database";
+            }
+        }
 
         public override void Run()
         {
-            
-            Console.WriteLine(@"Enter two dates in format <yyyy-MM-dd yyyy-MM-dd> : ");
+            writer.WriteLine("");
+            writer.WriteLine(@"Enter two dates in format <yyyy-MM-dd yyyy-MM-dd> : ");
             DateTime dt;
             List<DateTime> dates = new List<DateTime>();
-            Array.ForEach(Console.ReadLine().Split(" "), x =>
+            reader.ReadInputParameters(" ").ForEach(x =>
            {
                DateTime.TryParseExact(x,
                           "yyyy-MM-dd",
@@ -32,7 +42,7 @@ namespace Test.Commands
            });
 
             getWorkDaysBetweenDates(dates[0], dates[1]);
-            Console.WriteLine();
+            writer.WriteLine("");
         }
 
         private void getWorkDaysBetweenDates(DateTime firstDate, DateTime secondDate)
@@ -42,7 +52,7 @@ namespace Test.Commands
 
                 string connectionString;
                 connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=db_posts;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-                
+
                 string cd = Environment.CurrentDirectory;
                 cd = cd.Substring(0, cd.IndexOf("\\bin\\Debug")) + "\\database\\SQLQuery4.sql";
                 string query = File.ReadAllText(cd);
@@ -53,40 +63,23 @@ namespace Test.Commands
                     // Use method to read sql files with "Go" 
                     DBUtils.ExecuteBatchNonQueryWithSplit(query, conn);
 
-                    SqlDataAdapter da2 = new SqlDataAdapter();
                     if (conn.State == ConnectionState.Closed)
                     {
                         conn.Open();
                     }
                     SqlCommand cmd = new SqlCommand("SELECT dbo.weekdays(@FirstDate, @SecondDate) AS 'weekdays'", conn);
-                    //SqlParameter code1 = new SqlParameter("@code", SqlDbType.Int);
-                    SqlParameter first = cmd.Parameters.AddWithValue("@FirstDate", conn); 
+                    SqlParameter first = cmd.Parameters.AddWithValue("@FirstDate", conn);
                     SqlParameter second = cmd.Parameters.AddWithValue("@SecondDate", conn);
                     first.Value = firstDate;
                     second.Value = secondDate;
-                    Console.WriteLine(cmd.ExecuteScalar());
-                } 
-                
+                    writer.WriteLine(cmd.ExecuteScalar().ToString());
+                }
+
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.GetBaseException());
+                writer.WriteLine(e.GetBaseException().ToString());
             }
-        }
-
-        public override void ProgramInfo()
-        {
-            Console.WriteLine("A products count by day and department");
-        }
-
-        public override int GetProgramNumber()
-        {
-            return this.Number;
-        }
-
-        public override string GetCommandName()
-        {
-            return this.Name;
         }
     }
 }

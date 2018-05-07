@@ -7,13 +7,22 @@ namespace Test.Commands
 {
     public class GetSalesTotaling : BaseCommand
     {
-        private readonly int Number = 11;
-        private readonly string Name = "SQL Bug Fixing: Fix the QUERY - Totaling";
+        public override int Number { get { return 11; } }
 
+        public override string Name { get { return "SQL Bug Fixing: Fix the QUERY - Totaling"; } }
+
+        public override string ProgramInfo
+        {
+            get
+            {
+                return "A products count by day and department";
+            }
+        }
+      
         public override void Run()
         {
             getTotalSales();
-            Console.WriteLine();
+            writer.WriteLine("");
         }
 
         private void getTotalSales()
@@ -26,7 +35,6 @@ namespace Test.Commands
                 SqlCommand cmd = new SqlCommand();
                 SqlDataReader reader;
 
-                // NOTE: only for debugging 
                 string cd = Environment.CurrentDirectory;
                 cd = cd.Substring(0, cd.IndexOf("\\bin\\Debug")) + "\\database\\SQLQuery2.sql";
 
@@ -34,38 +42,24 @@ namespace Test.Commands
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cnn;
                 cnn.Open();
-                Console.WriteLine("Connection Open  !");
+                writer.WriteLine("Connection Open  !");
 
                 reader = cmd.ExecuteReader();
 
-                Console.WriteLine("{0,17} {1,-20} {2,-20}", reader.GetName(0), reader.GetName(1), reader.GetName(2));
-                Console.WriteLine(new String('-', 57));
+                writer.WriteLine("\nResult: ");
+                writer.WriteLine("{0,17} {1,-20} {2,-20}", new object[] { reader.GetName(0), reader.GetName(1), reader.GetName(2) });
+                writer.WriteLine(new String('-', 57));
                 while (reader.Read())
                 {
-                    Console.WriteLine("{0} {1} {2}", reader.GetDateTime(0), reader.GetString(1), reader.GetInt32(2));
+                    writer.WriteLine("{0} {1} {2}", new object[] { reader.GetDateTime(0), reader.GetString(1), reader.GetInt32(2) });
                 }
                 cnn.Close();
-                Console.WriteLine("Connection Closed  !");
+                writer.WriteLine("Connection Closed  !");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.GetBaseException());
+                writer.WriteLine(e.GetBaseException().ToString());
             }
-        }
-
-        public override void ProgramInfo()
-        {
-            Console.WriteLine("A products count by day and department");
-        }
-
-        public override int GetProgramNumber()
-        {
-            return this.Number;
-        }
-
-        public override string GetCommandName()
-        {
-            return this.Name;
         }
     }
 }

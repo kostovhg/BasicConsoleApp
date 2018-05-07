@@ -14,53 +14,59 @@ namespace Test
         private static string menu = InitMenuList();
 
         static void Main(string[] args)
-        {  
-            Console.WriteLine("Select task: ");
-
+        {
             Console.CursorVisible = false;
             do
             {
-                
+                Console.Clear();
+                Console.WriteLine(menu);
+                Console.Write("\nEnter number between 0 and {0}: ", commands.Count - 1);
                 if (Int32.TryParse(Console.ReadLine(), out choise) && choise >= 0 && choise < commands.Count)
                 {
-                    //runnables[choise].Run();
-                    commands[choise].Run();
+                    Console.Clear();
+                    IRunnable command = commands[choise];
+                    command.PrintHeading();
+                    command.Run();
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("You did not enter a correct number.");
-                    choise = AskForExit();
-                    Console.ReadLine();
                 }
-
+                choise = AskForExit();
             } while (choise != 0);
         }
 
         private static int AskForExit()
         {
+            if (choise != 0)
+            {
+                Console.WriteLine("\nDo you like to go back to commands menu [y/n] (default y):");
+                string answer = Console.ReadLine();
+                if (answer.Equals("n"))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
             return 0;
         }
 
         private static string InitMenuList()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("1. Vowel Count ").Append(Environment.NewLine);
-            sb.Append("2. Reverse words").Append(Environment.NewLine);
-            sb.Append("3. Where my anagrams at ?").Append(Environment.NewLine);
-            sb.Append("4. Bit Counting").Append(Environment.NewLine);
-            sb.Append("5. List Filtering").Append(Environment.NewLine);
-            sb.Append("6. Binary Addition").Append(Environment.NewLine);
-            sb.Append("7. Sum of two lowest positive integers").Append(Environment.NewLine);
-            sb.Append("8. Jaden Casing Strings").Append(Environment.NewLine);
-            sb.Append("9. Reversed sequence").Append(Environment.NewLine);
-            sb.Append("10. SQL Basics: Simple JOIN").Append(Environment.NewLine);
-            sb.Append("11. SQL Bug Fixing: Fix the QUERY - Totaling").Append(Environment.NewLine);
-            sb.Append("12. Calculating Month-Over-Month Percentage Growth Rate").Append(Environment.NewLine);
-            sb.Append("13. Count Weekdays").Append(Environment.NewLine);
-            sb.Append("0. Exit").Append(Environment.NewLine);
+
+            sb.Append("Apps menu").Append(Environment.NewLine);
+            sb.Append("----------").Append(Environment.NewLine);
+
+            menuItems.ForEach(i => sb.Append(i).Append(Environment.NewLine));
             return sb.ToString();
         }
 
+        // Only for test purposes
         private static string drawMenu(List<string> items)
         {
             Console.CursorVisible = false;
@@ -97,10 +103,16 @@ namespace Test
 
         private static List<string> InitMenuItems()
         {
-            List<string> strMenuItems = commands.OrderBy(kvp => kvp.Key).Select(kvp => String.Format("{0}. {1}", kvp.Key, kvp.Value.GetCommandName())).ToList();
+            List<string> strMenuItems = commands
+                .OrderBy(kvp => kvp.Key)
+                .Select(kvp => String.Format("{0}. {1}", kvp.Key, kvp.Value.Name))
+                .ToList();
             string tmp = strMenuItems[0];
+
+            // Get 0. Exit to the end
             strMenuItems.RemoveAt(0);
             strMenuItems.Add(tmp);
+
             return strMenuItems;
         }
 

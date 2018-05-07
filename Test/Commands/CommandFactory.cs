@@ -50,7 +50,7 @@ namespace Test.Commands
                           .ForEach(x =>
                           {
                               IRunnable c = Activator.CreateInstance(x) as IRunnable;
-                              _commands.Add(c.GetProgramNumber(), c);
+                              _commands.Add(c.Number, c);
                           });
         }
 
