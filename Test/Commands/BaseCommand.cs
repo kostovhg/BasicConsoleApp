@@ -36,7 +36,7 @@ namespace Test.Commands
 
         public virtual void Run()
         {
-            Console.WriteLine("Run some program ...");
+            writer.WriteLine("Run some program ...");
         }
 
         public void PrintHeading()

@@ -30,15 +30,20 @@ namespace Test.Commands
             try
             {
                 string connetionString;
-                connetionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=db_posts;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+                string cd = Environment.CurrentDirectory;
+                string sql_file = cd.Substring(0, cd.IndexOf("\\bin\\Debug")) + "\\database\\SQLQuery3.sql";
+                
+                string db_file = cd.Substring(0, cd.IndexOf("\\bin\\Debug")) + "\\database\\db_test.mdf";
+                //db_file = "\"" + db_file + "\"";
+                connetionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + db_file + ";Integrated Security=True;Connect Timeout=30";
                 SqlConnection cnn = new SqlConnection(connetionString);
                 SqlCommand cmd = new SqlCommand();
                 SqlDataReader reader;
 
-                string cd = Environment.CurrentDirectory;
-                cd = cd.Substring(0, cd.IndexOf("\\bin\\Debug")) + "\\database\\SQLQuery3.sql";
+               
 
-                cmd.CommandText = File.ReadAllText(cd);
+                cmd.CommandText = File.ReadAllText(sql_file);
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cnn;
                 cnn.Open();
