@@ -35,7 +35,6 @@ namespace Test.Commands
                 string sql_file = cd.Substring(0, cd.IndexOf("\\bin\\Debug")) + "\\database\\SQLQuery3.sql";
                 
                 string db_file = cd.Substring(0, cd.IndexOf("\\bin\\Debug")) + "\\database\\db_test.mdf";
-                //db_file = "\"" + db_file + "\"";
                 connetionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + db_file + ";Integrated Security=True;Connect Timeout=30";
                 SqlConnection cnn = new SqlConnection(connetionString);
                 SqlCommand cmd = new SqlCommand();
