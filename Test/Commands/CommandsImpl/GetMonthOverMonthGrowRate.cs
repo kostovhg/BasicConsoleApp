@@ -5,11 +5,12 @@ using System.IO;
 
 namespace Test.Commands
 {
-    public class GetMonthOverMonthGrowRate : IRunnable
+    public class GetMonthOverMonthGrowRate : BaseCommand
     {
         private readonly int Number = 12;
+        private readonly string Name = "Calculating Month-Over-Month Percentage Growth Rate";
 
-        public void Run()
+        public override void Run()
         {
             getMonthGrowRate();
             Console.WriteLine();
@@ -52,14 +53,19 @@ namespace Test.Commands
             }
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             Console.WriteLine("A products count by day and department");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return this.Name;
         }
     }
 }

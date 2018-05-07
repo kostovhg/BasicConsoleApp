@@ -9,11 +9,12 @@ using Test.Commands.dbUtils;
 
 namespace Test.Commands
 {
-    public class GetWorkDaysBetweenDates : IRunnable
+    public class GetWorkDaysBetweenDates : BaseCommand
     {
         private readonly int Number = 13;
+        private readonly string Name = "Count Weekdays";
 
-        public void Run()
+        public override void Run()
         {
             
             Console.WriteLine(@"Enter two dates in format <yyyy-MM-dd yyyy-MM-dd> : ");
@@ -73,14 +74,19 @@ namespace Test.Commands
             }
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             Console.WriteLine("A products count by day and department");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return this.Name;
         }
     }
 }

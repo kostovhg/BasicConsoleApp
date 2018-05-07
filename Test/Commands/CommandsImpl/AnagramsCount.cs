@@ -5,20 +5,24 @@ using System.Text;
 
 namespace Test.Commands
 {
-    class AnagramsCount : IRunnable
+    class AnagramsCount : BaseCommand
     {
         private readonly int Number = 3;
-        private static readonly StringBuilder sb = new StringBuilder("Two words are anagrams of each other if they both contain the same letters." + Environment.NewLine +
-            "For example:" + Environment.NewLine + "'abba' & 'baab' == true 'abba' & 'bbaa' == true 'abba' & 'abbba' == false" + Environment.NewLine);
+        private static readonly StringBuilder sb = new StringBuilder(
+            "Two words are anagrams of each other if they both contain the same letters." + Environment.NewLine +
+            "For example:" + Environment.NewLine + 
+            "'abba' & 'baab' == true 'abba' & 'bbaa' == true 'abba' & 'abbba' == false" + Environment.NewLine
+            );
 
-        public void Run()
+        public override void Run()
         {
-            List<string> words = new List<string>();
-            Console.WriteLine("Enter the template: ");
-            string template = Console.ReadLine();
-            Console.WriteLine("Enter the list of words to be checked separated with single space: ");
-            Array.ForEach(Console.ReadLine().Split(" "), w => words.Add(w));
-            Console.WriteLine("Result : {0}", string.Join(", ", Anagrams(template, words)));
+            writer.WriteHeading(GetCommandName());
+            writer.WriteLine("Enter the template: ");
+            string template = reader.ReadInputParameters()[0];
+            writer.WriteLine("Enter the list of words to be checked separated with single space: ");
+            List<string> words = reader.ReadInputParameters();
+            writer.WriteLine("Result : {0}", string.Join(", ", Anagrams(template, words)));
+            
         }
 
         private List<string> Anagrams(string template, List<string> words)
@@ -62,14 +66,19 @@ namespace Test.Commands
             return result;
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
-            Console.Write(sb.ToString());
+            writer.WriteLine(sb);
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return "Where my anagrams at ?";
         }
     }
 }

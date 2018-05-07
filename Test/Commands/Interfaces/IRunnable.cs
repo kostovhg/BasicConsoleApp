@@ -7,5 +7,7 @@
         void ProgramInfo();
 
         int GetProgramNumber();
+
+        string GetCommandName();
     }
 }

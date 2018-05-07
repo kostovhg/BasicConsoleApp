@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace Test.Commands
 {
-    internal class JadenCassing : IRunnable
+    internal class JadenCassing : BaseCommand
     {
         private readonly int Number = 8;
-       public void Run()
+       public override void Run()
         {
             Console.WriteLine("Enter sentence to be transformed to Jaden-Cased: ");
             String[] input = Console.ReadLine().Split();
@@ -20,14 +20,19 @@ namespace Test.Commands
                 .ToArray());
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             Console.WriteLine("Capitalize each word in sentence");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return "Jaden Casing Strings";
         }
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Test.Commands
 {
-    class ListFilter : IRunnable
+    class ListFilter : BaseCommand
     {
         private readonly int Number = 5;
 
-        public void Run()
+        public override void Run()
         {
             List<object> list = new List<object>();
             String[] input = Console.ReadLine().Split(", ");
@@ -43,14 +43,19 @@ namespace Test.Commands
             return integerList;
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             Console.WriteLine("Takes a list of non - negative integers and strings and returns a new list with the strings filtered out");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return "List Filtering";
         }
     }
 }

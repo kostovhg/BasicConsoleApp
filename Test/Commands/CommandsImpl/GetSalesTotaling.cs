@@ -5,11 +5,12 @@ using System.IO;
 
 namespace Test.Commands
 {
-    public class GetSalesTotaling : IRunnable
+    public class GetSalesTotaling : BaseCommand
     {
         private readonly int Number = 11;
+        private readonly string Name = "SQL Bug Fixing: Fix the QUERY - Totaling";
 
-        public void Run()
+        public override void Run()
         {
             getTotalSales();
             Console.WriteLine();
@@ -52,14 +53,19 @@ namespace Test.Commands
             }
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             Console.WriteLine("A products count by day and department");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return this.Name;
         }
     }
 }

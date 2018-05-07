@@ -2,11 +2,11 @@
 
 namespace Test.Commands
 {
-    class BitCounting : IRunnable
+    class BitCounting : BaseCommand
     {
         private readonly int Number = 4;
 
-        public void Run()
+        public override void Run()
         {
             UInt64 number = 0;
             Console.WriteLine("Enter positive integer number: ");
@@ -24,14 +24,19 @@ namespace Test.Commands
             Console.WriteLine("You didn't enter a correct nubmer.");
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             throw new NotImplementedException();
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return "Bit Counting";
         }
     }
 }

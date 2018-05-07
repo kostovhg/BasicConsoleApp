@@ -27,7 +27,7 @@ namespace Test.Commands
             IRunnable command;
             if (!_commands.TryGetValue(key, out command))
             {
-                Console.WriteLine("No suck command");
+                Console.WriteLine("No such command");
                 return;
             }
 
@@ -41,17 +41,10 @@ namespace Test.Commands
 
         private void SearchForCommands()
         {
-            //Assembly.GetExecutingAssembly().GetTypes()
-            //    .Where(x => typeof(IRunnable).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList()
-            //   .ForEach(t =>
-            //   {
-            //      var y = (IRunnable)t;
-            //       _commands.Add(y.GetProgramNumber(), y);
-            //   });
-
-            
-            Assembly.GetExecutingAssembly().GetTypes()
-                          .Where(x => x.GetInterfaces().Contains(typeof(IRunnable))
+            Assembly.GetExecutingAssembly()
+                .GetTypes()
+                          .Where(x =>
+                          x.GetInterfaces().Contains(typeof(IRunnable))
                           && x.GetConstructor(Type.EmptyTypes) != null)
                           .ToList()
                           .ForEach(x =>

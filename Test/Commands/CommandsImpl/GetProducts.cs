@@ -5,11 +5,11 @@ using System.Data.SqlClient;
 
 namespace Test.Commands
 {
-    public class GetProducts : IRunnable
+    public class GetProducts : BaseCommand
     {
         private readonly int Number = 10;
-       
-        public void Run()
+        private readonly string Name = "SQL Basics: Simple JOIN";
+        public override void Run()
         {
             getProducts();
             Console.WriteLine();
@@ -42,14 +42,19 @@ namespace Test.Commands
             return new List<object>();
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             Console.WriteLine("Return all columns from the products table joined with company table, to fetch the company name.");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return this.Name;
         }
     }
 }

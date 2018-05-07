@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Test.Commands
 {
-    class BinaryAddition : IRunnable
+    class BinaryAddition : BaseCommand
     {
         private readonly int Number = 6;
 
-        public void Run()
+        public override void Run()
         {
             Console.WriteLine("Enter two numbers separated by single space: ");
             long tmp;
@@ -26,14 +26,19 @@ namespace Test.Commands
             return Convert.ToString(first + second, 2);
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             Console.WriteLine("Adds two numbers together and returns their sum in binary");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return "Binary Addition";
         }
     }
 }

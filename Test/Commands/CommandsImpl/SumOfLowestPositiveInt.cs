@@ -3,12 +3,12 @@ using System.Linq;
 
 namespace Test.Commands
 {
-    internal class SumOfLowestPositiveInt : IRunnable
+    internal class SumOfLowestPositiveInt : BaseCommand
     {
 
         private readonly int Number = 7;
 
-        public void Run()
+        public override void Run()
         {
             Console.WriteLine("Write array of integers separated by comma and single space: ");
             int tmp;
@@ -24,14 +24,19 @@ namespace Test.Commands
             return input.Where(i => i > 0).OrderBy(i => i).Take(2).Sum();
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             System.Console.WriteLine("Returns the sum of the two lowest positive numbers given an array of minimum 4 integers");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return this.Number;
+        }
+
+        public override string GetCommandName()
+        {
+            return "Sum of two lowest positive integers";
         }
     }
 }

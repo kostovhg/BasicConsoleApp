@@ -4,20 +4,20 @@ using System.Text;
 
 namespace Test.Commands
 {
-    public class ExitProgram : IRunnable
+    public class ExitProgram : BaseCommand
     {
 
-        public void Run()
+        public override void Run()
         {
             Console.WriteLine("Exiting the program");
         }
 
-        public void ProgramInfo()
+        public override void ProgramInfo()
         {
             Console.WriteLine("End the program");
         }
 
-        public int GetProgramNumber()
+        public override int GetProgramNumber()
         {
             return 0;
         }
